@@ -1,14 +1,11 @@
---Trabajo Practico
-
 import Data.Char (ord, chr)
 
---Primero que nada, armemos algunas funciones basicas que nos piden para empezar a resolver enunciados
---voy a hacer una funcion que me devuelva el numero m, teniendo en cuenta las condiciones que me piden para que el numero elegido sea valido
+--Primero que nada, armemos algunas funciones basicas 
+--voy a hacer una funcion que me devuelva el numero m, teniendo en cuenta las condiciones  para que el numero elegido sea valido
 
 --primero encontremos una forma de elegir 2 numeros primos distintos
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
---estas son funciones que tomo de otras clases que me van a servir para resolver el trabajo
 
 menorDivisorDesde :: Integer -> Integer -> Integer
 menorDivisorDesde n k | mod n k == 0 = k
@@ -69,7 +66,6 @@ solucionEc e = solucionEcConPropAdic (ecEquivalente e)
 --aca terminan las funciones que traigo de otras practicas
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---AHORA SI COMIENZO A RESOLVER EL TRABAJO
 
 --si hago que la funcion eliga sola dos numeros primos, siempre va a elegir los mismos dos, ya que siempre le doy un patron para elegir los numeros
 --por ejemplo los dos mas chicos que cumplan que n*m >= 127,etc, lo que me limitaria mucho la funcion, no se como darle aleatoreidad a la funcion para que eliga 
@@ -124,7 +120,6 @@ generarClaves p q = ((n,d),(n,e))
                 (n,m) = devolverNyM p q
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---vayamos a la segunda funcion que nos piden
 --ahora tengo unos mensajes y quiero encriptarlos
 
 --primero tengo que armar una lista de numeros enteros que se forma, reemplazando cada caracter por un numero entre 0 y 127
@@ -146,7 +141,7 @@ pasarNumerosAEncriptacion [] _ = []
 pasarNumerosAEncriptacion (a:as) (n,d) = (( a^d) `mod` n) : (pasarNumerosAEncriptacion as (n,d)) 
 
 
---ahora si, ya tenemos todo lo que necesitamos, puedo hacer la funcion que me piden
+--ahora si, ya tenemos todo lo que necesitamos, puedo hacer la funcion 
 encriptar :: (Integer, Integer) -> String -> [Integer]
 encriptar (n,d) mensaje = pasarNumerosAEncriptacion (pasarLetrasANumeros mensaje) (n,d)
 --esta funcion encripta palabras
@@ -175,11 +170,11 @@ desencriptar (n,e) codigonumerico = pasarNumerosALetras (pasarEncriptacionANumer
 
 --ahora voy a intentar romper el codigo, deberia usar en este caso una clave privada y el codigo, pero me dan una clave publica, o sea en vez de
 --(n,e) me dan (n,d), pero yo se la relacion entre n y e, asi que encuentro e
---me dieron (n,d) = (100337, 60953)
+--tengo por ejemplo (n,d) = (100337, 60953)
 
 --voy a factorizar a mano n = 100337 = 269 * 373 = p*q = n
 --entonces m = (p-1)*(q-1) = (269-1)*(373-1) = 99696 = m
---por otro lado, como me dieron la clave publica, tengo info de d
+--por otro lado, como tengo la clave publica, tengo info de d
 --entonces tengo n , d , m asi que con esto puedo encontrar e
 --se que d*e ≡ 1 (mod m) ,entonces resuelvo esa ecuacion de congruencia con mi funcion y tengo e
 --basicamente tengo una ecuacion d*X ≡ 1 (mod m)
